@@ -1,0 +1,35 @@
+{
+  "name": "react-reflux",
+  "version": "0.0.0",
+  "description": "Better implementation of Redux",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rintoj/react-reflux.git"
+  },
+  "keywords": [
+    "React",
+    "Redux",
+    "Reflux",
+    "Decorators"
+  ],
+  "author": "Rinto Jose",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rintoj/react-reflux/issues"
+  },
+  "homepage": "https://github.com/rintoj/react-reflux#readme",
+  "dependencies": {
+    "reflect-metadata": "^0.1.10",
+    "rxjs": "^5.3.0",
+    "seamless-immutable": "^7.1.2"
+  },
+  "devDependencies": {
+    "tslint": "^5.0.0",
+    "typescript": "^2.2.2",
+    "webpack": "^2.3.3"
+  }
+}
