@@ -28,6 +28,13 @@ function bindData(target: any, key: string, selector: StateSelector): Subscripti
     })
 }
 
+/**
+ * Observer is a decorator that will help observe an action
+ *
+ * @export
+ * @param {*} target
+ * @returns
+ */
 export function observer(target: any) {
 
   return (targetComponent: any): any => {
@@ -91,40 +98,6 @@ export function data(selector: StateSelector, bindImmediate?: boolean) {
     let bindingsMeta = Reflect.getMetadata(REFLUX_DATA_BINDINGS_KEY, target.constructor)
     if (!Reflect.hasMetadata(REFLUX_DATA_BINDINGS_KEY, target.constructor)) {
       bindingsMeta = { selectors: {}, subscriptions: [], destroyed: !bindImmediate }
-
-      //   const originalBeforeMount = target.componentWillMount
-      //   target.componentWillMount = function componentWillMount() {
-      //     this.state = this.state || {}
-      //     return originalBeforeMount && originalBeforeMount.call(this)
-      //   }
-
-      //   const originalInit = target.componentDidMount
-      //   target.componentDidMount = function componentDidMount() {
-      //     let dataBindings = Reflect.getMetadata(REFLUX_DATA_BINDINGS_KEY, this)
-      //     if (dataBindings != undefined && dataBindings.destroyed === true) {
-
-      //       dataBindings.subscriptions = dataBindings.subscriptions.concat(
-      //         Object.keys(dataBindings.selectors)
-      //           .map(key => bindData(this, key, dataBindings.selectors[key]))
-      //       )
-
-      //       dataBindings.destroyed = false
-      //       Reflect.defineMetadata(REFLUX_DATA_BINDINGS_KEY, dataBindings, this)
-      //     }
-      //     return originalInit && originalInit.call(this)
-      //   }
-
-      //   const originalDestroy = target.componentWillUnmount
-      //   target.componentWillUnmount = function componentWillUnmount() {
-      //     let dataBindings = Reflect.getMetadata(REFLUX_DATA_BINDINGS_KEY, this)
-      //     if (dataBindings != undefined) {
-      //       dataBindings.subscriptions.forEach(subscription => subscription.unsubscribe())
-      //       dataBindings.subscriptions = []
-      //       dataBindings.destroyed = true
-      //       Reflect.defineMetadata(REFLUX_DATA_BINDINGS_KEY, dataBindings, this)
-      //     }
-      //     return originalDestroy && originalDestroy.call(this)
-      //   }
     }
 
     bindingsMeta.selectors[propertyKey] = selector

@@ -4,6 +4,7 @@
   "description": "Better implementation of Redux",
   "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
     "test": "npm test"
   },
   "repository": {
@@ -28,6 +29,8 @@
     "seamless-immutable": "^7.1.2"
   },
   "devDependencies": {
+    "@types/node": "^7.0.12",
+    "@types/react": "^15.0.21",
     "tslint": "^5.0.0",
     "typescript": "^2.2.2",
     "webpack": "^2.3.3"

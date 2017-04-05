@@ -6,6 +6,7 @@
     "jsx": "react",
     "pretty": true,
     "outDir": "./dist",
+    "baseUrl": "src",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "preserveConstEnums": true,
@@ -13,7 +14,11 @@
     "sourceMap": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "lib": [
+      "es2017",
+      "dom"
+    ]
   },
   "filesGlob": [
     "typings/index.d.ts",
