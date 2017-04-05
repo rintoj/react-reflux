@@ -1,5 +1,7 @@
+import './observable'
+
 import { ActionObserver } from './observers'
-import { Observable } from 'rxjs/Rx'
+import { Observable } from 'rxjs/Observable'
 import { Reflux } from './constance'
 import { ReplaceableState } from './replaceable-state'
 

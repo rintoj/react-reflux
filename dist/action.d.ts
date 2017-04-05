@@ -1,3 +1,4 @@
+import './observable';
 import { ActionObserver } from './observers';
 /**
  * Defines an action which an be extended to implement custom actions for a reflux application

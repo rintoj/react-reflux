@@ -30,12 +30,9 @@
     "react"
   ],
   "exclude": [
-    "build",
-    "config",
+    "demo",
     "dist",
-    "node_modules",
-    "public",
-    "scripts"
+    "node_modules"
   ],
   "compileOnSave": false
 }
