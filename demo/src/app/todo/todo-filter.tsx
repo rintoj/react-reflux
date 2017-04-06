@@ -32,7 +32,7 @@ export class TodoFilter extends React.Component<Props, State> {
     const { filter } = this.props
     return <ul id='filters'>
       <li>
-        <a href='#' className={filter === 'ALL' ? 'selected' : undefined}
+        <a href='#' className={filter == undefined || filter === 'ALL' ? 'selected' : undefined}
           onClick={this.setAllFilter}>All</a>
       </li>
       <li>

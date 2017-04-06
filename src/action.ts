@@ -3,6 +3,7 @@ import './observable'
 import { Observable } from 'rxjs/Observable'
 import { Observer } from 'rxjs/Observer'
 import { Reflux } from './constance'
+import * as Immutable from 'seamless-immutable'
 import { ReplaceableState } from './replaceable-state'
 
 /**
@@ -130,6 +131,7 @@ export class Action {
           // replace the state with the new one if not 'undefined'
           let nextState = (state as ReplaceableState).state
           if (nextState == undefined) return
+          if (!(nextState instanceof Immutable)) nextState = Immutable.from(nextState)
           Reflux.state = nextState
           return nextState
 

@@ -1,6 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var constance_1 = require("./constance");
+/**
+ * This decorator configure instance of a store
+ *
+ * @export
+ * @param {*} storeClass
+ * @returns
+ */
 function store(storeClass) {
     // save a reference to the original constructor
     var original = storeClass;

@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("./observable");
 var Observable_1 = require("rxjs/Observable");
 var constance_1 = require("./constance");
+var Immutable = require("seamless-immutable");
 var replaceable_state_1 = require("./replaceable-state");
 /**
  * Defines an action which an be extended to implement custom actions for a reflux application
@@ -111,6 +112,8 @@ var Action = (function () {
                 var nextState = state.state;
                 if (nextState == undefined)
                     return;
+                if (!(nextState instanceof Immutable))
+                    nextState = Immutable.from(nextState);
                 constance_1.Reflux.state = nextState;
                 return nextState;
             }

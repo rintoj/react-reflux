@@ -1,5 +1,5 @@
 import { AddTodoAction, RemoveCompletedTodosAction, RemoveTodoAction, SetFilterAction, ToggleAllTodosAction, ToggleTodoAction } from '../action'
-import { action, store } from 'react-reflux'
+import { ReplaceableState, action, store } from 'react-reflux'
 
 import { AppState } from '../state'
 import { Observable } from 'rxjs/Rx'
@@ -10,11 +10,11 @@ export class TodoStore {
 
   @action
   add(state: AppState, action: AddTodoAction): AppState {
-    return {
+    return new ReplaceableState({
       todos: (state.todos || []).concat(
         Object.assign({ id: this.generateId() }, action.todo)
       )
-    }
+    })
   }
 
   @action
