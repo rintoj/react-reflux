@@ -6,7 +6,11 @@ import { data, observer } from 'react-reflux'
 import { TodoItem } from './todo-item'
 
 class Props {
-  @data((state: AppState) => state.todos)
+  @data((state: AppState) => (state.todos || []).filter(todo => {
+    if (state.filter === 'COMPLETED') return todo.completed
+    if (state.filter === 'ACTIVE') return !todo.completed
+    return true
+  }))
   filteredTodos?: Todo[]
 }
 

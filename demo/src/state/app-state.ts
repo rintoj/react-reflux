@@ -1,5 +1,6 @@
 import { Todo } from './todo'
 
 export interface AppState {
-  todos: Todo[]
+  todos?: Todo[]
+  filter?: string
 }

@@ -10,9 +10,17 @@ export class RemoveTodoAction extends Action {
 }
 
 export class ToggleTodoAction extends Action {
-  constructor(public id: string) { super() }
+  constructor(public id: string, public completed: boolean) { super() }
 }
 
 export class ToggleAllTodosAction extends Action {
   constructor(public completed: boolean) { super() }
+}
+
+export class RemoveCompletedTodosAction extends Action {
+  constructor() { super() }
+}
+
+export class SetFilterAction extends Action {
+  constructor(public filter: string) { super() }
 }

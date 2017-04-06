@@ -14,7 +14,7 @@
     "allowJs": true,
     "sourceMap": true,
     "noImplicitReturns": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "noUnusedLocals": true,
     "lib": [
       "es2017",

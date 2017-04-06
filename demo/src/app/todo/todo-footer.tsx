@@ -1,13 +1,32 @@
 import * as React from 'react'
 
-interface Props {
+import { RemoveCompletedTodosAction, SetFilterAction } from '../../action'
+import { data, observer } from 'react-reflux'
+
+import { AppState } from '../../state'
+
+class Props {
+  @data((state: AppState) =>
+    (state.todos || []).reduce((count, item) => count - (item.completed ? 1 : 0), state.todos.length)
+  )
   leftCount?: number
+
+  @data((state: AppState) =>
+    (state.todos || []).reduce((count, item) => count + (item.completed ? 1 : 0), 0)
+  )
   completedCount?: number
+
+  @data((state: AppState) =>
+    (state.todos || []).reduce((count, item) => count + (item.completed ? 0 : 1), 0)
+  )
   pendingCount?: number
+
+  @data((state: AppState) => state.filter)
   filter?: string
 }
 interface State { }
 
+@observer(Props)
 export class TodoFooter extends React.Component<Props, State> {
 
   constructor(props) {
@@ -16,28 +35,30 @@ export class TodoFooter extends React.Component<Props, State> {
   }
 
   clearCompleted() {
-    // this.props.todoStore.clearCompleted()
+    new RemoveCompletedTodosAction().dispatch()
   }
 
   setAllFilter = () => {
-    // this.props.todoStore.setFilter('ALL')
+    new SetFilterAction('ALL').dispatch()
   }
 
   setActiveFilter = () => {
-    // this.props.todoStore.setFilter('ACTIVE')
+    new SetFilterAction('ACTIVE').dispatch()
   }
 
   setCompletedFilter = () => {
-    // this.props.todoStore.setFilter('COMPLETED')
+    new SetFilterAction('COMPLETED').dispatch()
   }
 
   render() {
     const { leftCount, completedCount, filter } = this.props
     return (
       <footer id='footer'>
-        <span id='todo-count'><strong>{leftCount} </strong>
-          {leftCount > 1 ? 'items' : 'item'} left
-            </span>
+        {leftCount != undefined &&
+          <span id='todo-count'><strong>{leftCount} </strong>
+            {leftCount > 1 ? 'items' : 'item'} left
+          </span>
+        }
         <ul id='filters'>
           <li>
             <a href='#' className={filter === 'ALL' ? 'selected' : undefined}
