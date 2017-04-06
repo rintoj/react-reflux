@@ -11,6 +11,8 @@
     "noImplicitAny": false,
     "preserveConstEnums": true,
     "allowJs": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "sourceMap": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,

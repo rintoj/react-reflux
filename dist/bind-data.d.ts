@@ -1,4 +1,3 @@
-import { StateSelector } from './state-selector';
 /**
  * Observer is a decorator that will help observe an action
  *
@@ -24,4 +23,6 @@ export declare function observer(target: any): (targetComponent: any) => any;
  * @param {*} selector
  * @returns
  */
-export declare function data(selector: StateSelector, bindImmediate?: boolean): (target: any, propertyKey: string) => void;
+export declare function data(selector: {
+    (state: any): any;
+}, bindImmediate?: boolean): (target: any, propertyKey: string) => void;

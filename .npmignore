@@ -1,7 +1,6 @@
 compiled/
 demo/
 node_modules/
-src/
 *.log
 tsconfig.json
 tslint.json

@@ -1,15 +1,14 @@
-import { Store, observe } from '../reflux'
+import { AddTodoAction, ToggleAllTodosAction } from '../action'
+import { Store, observe } from 'react-reflux'
 
-import { AddTodo } from '../action'
 import { AppState } from '../state'
 import { Observable } from 'rxjs/Rx'
 import { Observer } from 'rxjs/Rx'
-import { RemoveLastTodo } from './../action/todo-action'
 
 export class TodoStore extends Store {
 
   @observe
-  add(state: AppState, action: AddTodo): Observable<any> {
+  add(state: AppState, action: AddTodoAction): any {
     return Observable.create((observer: Observer<AppState>) => {
       observer.next({
         todos: (state.todos || []).concat(
@@ -21,16 +20,18 @@ export class TodoStore extends Store {
   }
 
   @observe
-  removeLast(state: AppState, action: RemoveLastTodo): Observable<any> {
+  toggleAll(state: AppState, action: ToggleAllTodosAction): any {
     return Observable.create((observer: Observer<AppState>) => {
       observer.next({
-        todos: action && state.todos.slice(0, -1)
+        todos: (state.todos || []).map(todo => Object.assign({}, todo, {
+          completed: action.completed
+        }))
       })
       observer.complete()
     }).share()
   }
 
-  generateId() {
+  private generateId() {
     return btoa(Math.random() + '').toLowerCase().substr(6, 6)
   }
 

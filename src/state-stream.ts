@@ -1,7 +1,17 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { Observable } from 'rxjs/Observable'
-import { StateSelector } from './state-selector'
 import { Subscription } from 'rxjs/Subscription'
+
+/**
+ * State selector function
+ *
+ * @export
+ * @interface StateSelector
+ * @template T
+ */
+export interface StateSelector {
+  (state: any): any
+}
 
 /**
  * Defines a stream for changing state in a reflux application

@@ -1,5 +1,3 @@
-
-
 var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -25,7 +23,7 @@ var env = getClientEnvironment(publicUrl);
 module.exports = {
   // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
   // See the discussion in https://github.com/facebookincubator/create-react-app/issues/343.
-  devtool: 'cheap-module-source-map',
+  devtool: 'eval',
   // These are the "entry points" to our application.
   // This means they will be the "root" imports that are included in JS bundle.
   // The first two entry points enable "hot" CSS and auto-refreshes for JS.
@@ -83,8 +81,7 @@ module.exports = {
   module: {
     // First, run the linter.
     // It's important to do this before Babel processes the JS.
-    preLoaders: [
-      {
+    preLoaders: [{
         test: /\.(js|jsx)$/,
         loader: 'eslint',
         include: paths.appSrc,

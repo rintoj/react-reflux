@@ -2,7 +2,6 @@ import * as React from 'react'
 
 import { REFLUX_DATA_BINDINGS_KEY } from './constance'
 import { Reflux } from './constance'
-import { StateSelector } from './state-selector'
 import { Subscription } from 'rxjs/Subscription'
 
 declare var Reflect: any
@@ -14,7 +13,7 @@ declare var Reflect: any
  * @param {any} key
  * @param {any} selectorFunc
  */
-function bindData(target: any, key: string, selector: StateSelector): Subscription {
+function bindData(target: any, key: string, selector: { (state: any): any }): Subscription {
   return Reflux.stateStream
     .select(selector)
     .subscribe(data => {
@@ -92,7 +91,7 @@ export function observer(target: any) {
  * @param {*} selector
  * @returns
  */
-export function data(selector: StateSelector, bindImmediate?: boolean) {
+export function data(selector: { (state: any): any }, bindImmediate?: boolean) {
   return (target: any, propertyKey: string) => {
 
     let bindingsMeta = Reflect.getMetadata(REFLUX_DATA_BINDINGS_KEY, target.constructor)
