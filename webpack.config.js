@@ -8,9 +8,6 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts'],
   },
-  externals: {
-    react: 'react'
-  },
   module: {
     loaders: [{
       test: /\.ts$/,
