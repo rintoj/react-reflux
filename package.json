@@ -6,7 +6,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "clear": "rimraf dist",
-    "build": "npm run clear && tsc"
+    "build": "npm run clear && tsc",
+    "push": "npm run build && npm pack && cd demo && npm install ../react-reflux-*.*.*.tgz",
+    "push:watch": "concurrently -r 'npm run build -- -w' 'nodemon --watch dist --delay 1.0 --exec \"npm run push\"'"
   },
   "repository": {
     "type": "git",
@@ -36,6 +38,7 @@
     "@types/node": "^7.0.12",
     "@types/react": "^15.0.21",
     "awesome-typescript-loader": "^3.1.2",
+    "nodemon": "^1.11.0",
     "rimraf": "^2.6.1",
     "tslint": "^5.0.0",
     "tslint-loader": "^3.4.3",

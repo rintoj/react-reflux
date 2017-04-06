@@ -8,70 +8,52 @@ import { Observer } from 'rxjs/Rx'
 export class TodoStore extends Store {
 
   @action
-  add(state: AppState, action: AddTodoAction): any {
-    return Observable.create((observer: Observer<AppState>) => {
-      observer.next({
-        todos: (state.todos || []).concat(
-          Object.assign({ id: this.generateId() }, action.todo)
-        )
-      })
-      observer.complete()
-    }).share()
+  add(state: AppState, action: AddTodoAction) {
+    return {
+      todos: (state.todos || []).concat(
+        Object.assign({ id: this.generateId() }, action.todo)
+      )
+    }
   }
 
   @action
-  toggleTodo(state: AppState, action: ToggleTodoAction): any {
-    return Observable.create((observer: Observer<AppState>) => {
-      observer.next({
-        todos: (state.todos || []).map(
-          todo => {
-            if (todo.id === action.id) {
-              return Object.assign({}, todo, {
-                completed: action.completed
-              })
-            }
-            return todo
-          }
-        )
-      })
-      observer.complete()
-    })
+  toggleTodo(state: AppState, action: ToggleTodoAction) {
+    return {
+      todos: (state.todos || []).map(todo =>
+        (todo.id === action.id) ? Object.assign({}, todo, {
+          completed: action.completed
+        }) : todo
+      )
+    }
   }
 
   @action
-  remove(state: AppState, action: RemoveTodoAction): any {
-    return Observable.create((observer: Observer<AppState>) => {
-      observer.next({
-        todos: (state.todos || []).filter(todo => todo.id !== action.id)
-      })
-      observer.complete()
-    }).share()
+  remove(state: AppState, action: RemoveTodoAction) {
+    return {
+      todos: (state.todos || []).filter(todo => todo.id !== action.id)
+    }
   }
 
   @action
-  removeCompleted(state: AppState, action: RemoveCompletedTodosAction): any {
-    return Observable.create((observer: Observer<AppState>) => {
-      observer.next({
-        todos: (state.todos || []).filter(todo => !todo.completed)
-      })
-      observer.complete()
-    }).share()
+  removeCompleted(state: AppState, action: RemoveCompletedTodosAction) {
+    return {
+      todos: (state.todos || []).filter(todo => !todo.completed)
+    }
   }
 
   @action
-  toggleAll(state: AppState, action: ToggleAllTodosAction): any {
-    return Observable.create((observer: Observer<AppState>) => {
-      observer.next({
+  toggleAll(state: AppState, action: ToggleAllTodosAction) {
+    return new Promise((resolve, reject) => {
+      resolve({
         todos: (state.todos || []).map(todo => Object.assign({}, todo, {
           completed: action.completed
         }))
       })
-      observer.complete()
-    }).share()
+    })
   }
 
   @action
-  setFilter(state: AppState, action: SetFilterAction): any {
+  setFilter(state: AppState, action: SetFilterAction) {
     return Observable.create((observer: Observer<AppState>) => {
       observer.next({ filter: action.filter })
       observer.complete()

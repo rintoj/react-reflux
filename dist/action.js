@@ -96,11 +96,14 @@ var Action = (function () {
         }
         var observable = Observable_1.Observable.from(subscriptions)
             .flatMap(function (actionObserver) {
-            var value = actionObserver(constance_1.Reflux.state, _this);
-            if (!(value instanceof Observable_1.Observable)) {
-                throw 'Store must return "Observable"';
+            var result = actionObserver(constance_1.Reflux.state, _this);
+            if (!(result instanceof Observable_1.Observable || result instanceof Promise)) {
+                return Observable_1.Observable.create(function (observer) {
+                    observer.next(result);
+                    observer.complete();
+                });
             }
-            return value;
+            return result;
         })
             .map(function (state) {
             if (state instanceof replaceable_state_1.ReplaceableState) {
@@ -124,7 +127,10 @@ var Action = (function () {
             }
             return state;
         })
-            .catch(function () { return Observable_1.Observable.empty(); })
+            .catch(function (error) {
+            console.error(error);
+            return Observable_1.Observable.empty();
+        })
             .share();
         return new Promise(function (resolve, reject) {
             // to trigger observable

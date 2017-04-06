@@ -1,7 +1,6 @@
 import { Action } from './action';
-import { Observable } from 'rxjs/Observable';
 /**
- * Decorator for defining an action handler
+ * This decorator binds an action to the function
  *
  * @example
  *  @action
@@ -19,5 +18,5 @@ import { Observable } from 'rxjs/Observable';
  * @returns
  */
 export declare function action(target: any, propertyKey: string, descriptor: PropertyDescriptor): {
-    value: (state: any, action: Action) => Observable<any>;
+    value: (state: any, action: Action) => any;
 };

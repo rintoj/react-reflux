@@ -1,11 +1,10 @@
 import { Action } from './action'
-import { Observable } from 'rxjs/Observable'
 import { REFLUX_ACTION_KEY } from './constance'
 
 declare var Reflect: any
 
 /**
- * Decorator for defining an action handler
+ * This decorator binds an action to the function
  *
  * @example
  *  @action
@@ -35,7 +34,7 @@ export function action(target: any, propertyKey: string, descriptor: PropertyDes
   Reflect.defineMetadata(REFLUX_ACTION_KEY, refluxActions, target)
 
   return {
-    value: function bindAction(state: any, action: Action): Observable<any> {
+    value: function bindAction(state: any, action: Action): any {
       return descriptor.value.call(this, state, action)
     }
   }

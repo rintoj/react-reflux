@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var constance_1 = require("./constance");
 /**
- * Decorator for defining an action handler
+ * This decorator binds an action to the function
  *
  * @example
  *  @action
