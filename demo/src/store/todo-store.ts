@@ -1,11 +1,12 @@
 import { AddTodoAction, RemoveCompletedTodosAction, RemoveTodoAction, SetFilterAction, ToggleAllTodosAction, ToggleTodoAction } from '../action'
-import { Store, action } from 'react-reflux'
+import { action, store } from 'react-reflux'
 
 import { AppState } from '../state'
 import { Observable } from 'rxjs/Rx'
 import { Observer } from 'rxjs/Rx'
 
-export class TodoStore extends Store {
+@store
+export class TodoStore {
 
   @action
   add(state: AppState, action: AddTodoAction): AppState {
