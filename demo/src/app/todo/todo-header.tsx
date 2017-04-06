@@ -1,9 +1,9 @@
 import * as React from 'react'
 
 import { AddTodoAction, ToggleAllTodosAction } from '../../action'
+import { data, observer } from 'react-reflux'
 
 import { AppState } from '../../state'
-import { data } from 'react-reflux'
 
 class Props {
   @data((state: AppState) => (state.todos || []).reduce(
@@ -16,6 +16,7 @@ interface State {
   todoText?: string
 }
 
+@observer(Props)
 export class TodoHeader extends React.Component<Props, State> {
 
   constructor(props) {

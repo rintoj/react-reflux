@@ -16,9 +16,6 @@ export class TodoItem extends React.Component<Props, State> {
 
   constructor(props) {
     super(props)
-    this.state = {
-      todo: this.props.todo
-    }
   }
 
   onChange = (event) => {
@@ -30,10 +27,10 @@ export class TodoItem extends React.Component<Props, State> {
   }
 
   render() {
-    const todo = this.props.todo || {}
+    const { todo } = this.props
     return (
       <li>
-        <input className='toggle' type='checkbox' onChange={this.onChange} />
+        <input className='toggle' type='checkbox' checked={todo.completed || false} onChange={this.onChange} />
         <label>{todo.text}</label>
         <button className='destroy' onClick={this.removeItem}></button>
       </li>
