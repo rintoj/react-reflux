@@ -5,7 +5,7 @@ var constance_1 = require("./constance");
  * Decorator for defining an action handler
  *
  * @example
- *  @BindAction()
+ *  @action
  *  addTodo(state: State, action: AddTodoAction): Observable<State> {
  *    return Observable.create((observer: Observer<State>) => {
  *       observer.next({
@@ -19,7 +19,7 @@ var constance_1 = require("./constance");
  * @template S
  * @returns
  */
-function observe(target, propertyKey, descriptor) {
+function action(target, propertyKey, descriptor) {
     var metadata = Reflect.getMetadata('design:paramtypes', target, propertyKey);
     if (metadata.length < 2)
         throw new Error('BindAction: function must have two arguments!');
@@ -35,5 +35,5 @@ function observe(target, propertyKey, descriptor) {
         }
     };
 }
-exports.observe = observe;
+exports.action = action;
 //# sourceMappingURL=bind-action.js.map

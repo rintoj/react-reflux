@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
  * Decorator for defining an action handler
  *
  * @example
- *  @BindAction()
+ *  @action
  *  addTodo(state: State, action: AddTodoAction): Observable<State> {
  *    return Observable.create((observer: Observer<State>) => {
  *       observer.next({
@@ -18,6 +18,6 @@ import { Observable } from 'rxjs/Observable';
  * @template S
  * @returns
  */
-export declare function observe(target: any, propertyKey: string, descriptor: PropertyDescriptor): {
+export declare function action(target: any, propertyKey: string, descriptor: PropertyDescriptor): {
     value: (state: any, action: Action) => Observable<any>;
 };

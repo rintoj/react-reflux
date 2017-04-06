@@ -14,7 +14,8 @@
     "start:prod": "npm run build && NODE_ENV=productions",
     "serve": "cross-env SERVE=1 node scripts/serve.js",
     "clear": "rimraf build",
-    "tslint": "tslint src/**/*.ts"
+    "tslint": "tslint src/**/*.ts",
+    "pull": "cd ..; npm run build; npm pack; cd demo; npm install ../react-reflux-0.0.0.tgz"
   },
   "dependencies": {
     "name-util": "^1.0.1",

@@ -8,7 +8,7 @@ declare var Reflect: any
  * Decorator for defining an action handler
  *
  * @example
- *  @BindAction()
+ *  @action
  *  addTodo(state: State, action: AddTodoAction): Observable<State> {
  *    return Observable.create((observer: Observer<State>) => {
  *       observer.next({
@@ -22,7 +22,7 @@ declare var Reflect: any
  * @template S
  * @returns
  */
-export function observe(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+export function action(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
 
   let metadata = Reflect.getMetadata('design:paramtypes', target, propertyKey)
   if (metadata.length < 2) throw new Error('BindAction: function must have two arguments!')

@@ -1,5 +1,5 @@
 import { AddTodoAction, RemoveCompletedTodosAction, RemoveTodoAction, SetFilterAction, ToggleAllTodosAction, ToggleTodoAction } from '../action'
-import { Store, observe } from 'react-reflux'
+import { Store, action } from 'react-reflux'
 
 import { AppState } from '../state'
 import { Observable } from 'rxjs/Rx'
@@ -7,7 +7,7 @@ import { Observer } from 'rxjs/Rx'
 
 export class TodoStore extends Store {
 
-  @observe
+  @action
   add(state: AppState, action: AddTodoAction): any {
     return Observable.create((observer: Observer<AppState>) => {
       observer.next({
@@ -19,7 +19,7 @@ export class TodoStore extends Store {
     }).share()
   }
 
-  @observe
+  @action
   toggleTodo(state: AppState, action: ToggleTodoAction): any {
     return Observable.create((observer: Observer<AppState>) => {
       observer.next({
@@ -38,7 +38,7 @@ export class TodoStore extends Store {
     })
   }
 
-  @observe
+  @action
   remove(state: AppState, action: RemoveTodoAction): any {
     return Observable.create((observer: Observer<AppState>) => {
       observer.next({
@@ -48,7 +48,7 @@ export class TodoStore extends Store {
     }).share()
   }
 
-  @observe
+  @action
   removeCompleted(state: AppState, action: RemoveCompletedTodosAction): any {
     return Observable.create((observer: Observer<AppState>) => {
       observer.next({
@@ -58,7 +58,7 @@ export class TodoStore extends Store {
     }).share()
   }
 
-  @observe
+  @action
   toggleAll(state: AppState, action: ToggleAllTodosAction): any {
     return Observable.create((observer: Observer<AppState>) => {
       observer.next({
@@ -70,7 +70,7 @@ export class TodoStore extends Store {
     }).share()
   }
 
-  @observe
+  @action
   setFilter(state: AppState, action: SetFilterAction): any {
     return Observable.create((observer: Observer<AppState>) => {
       observer.next({ filter: action.filter })
