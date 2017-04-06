@@ -8,7 +8,7 @@ import { Observer } from 'rxjs/Rx'
 export class TodoStore extends Store {
 
   @action
-  add(state: AppState, action: AddTodoAction) {
+  add(state: AppState, action: AddTodoAction): AppState {
     return {
       todos: (state.todos || []).concat(
         Object.assign({ id: this.generateId() }, action.todo)
@@ -17,7 +17,7 @@ export class TodoStore extends Store {
   }
 
   @action
-  toggleTodo(state: AppState, action: ToggleTodoAction) {
+  toggleTodo(state: AppState, action: ToggleTodoAction): AppState {
     return {
       todos: (state.todos || []).map(todo =>
         (todo.id === action.id) ? Object.assign({}, todo, {
@@ -28,21 +28,21 @@ export class TodoStore extends Store {
   }
 
   @action
-  remove(state: AppState, action: RemoveTodoAction) {
+  remove(state: AppState, action: RemoveTodoAction): AppState {
     return {
       todos: (state.todos || []).filter(todo => todo.id !== action.id)
     }
   }
 
   @action
-  removeCompleted(state: AppState, action: RemoveCompletedTodosAction) {
+  removeCompleted(state: AppState, action: RemoveCompletedTodosAction): AppState {
     return {
       todos: (state.todos || []).filter(todo => !todo.completed)
     }
   }
 
   @action
-  toggleAll(state: AppState, action: ToggleAllTodosAction) {
+  toggleAll(state: AppState, action: ToggleAllTodosAction): Promise<AppState> {
     return new Promise((resolve, reject) => {
       resolve({
         todos: (state.todos || []).map(todo => Object.assign({}, todo, {
@@ -53,14 +53,14 @@ export class TodoStore extends Store {
   }
 
   @action
-  setFilter(state: AppState, action: SetFilterAction) {
+  setFilter(state: AppState, action: SetFilterAction): Observable<AppState> {
     return Observable.create((observer: Observer<AppState>) => {
       observer.next({ filter: action.filter })
       observer.complete()
     }).share()
   }
 
-  private generateId() {
+  private generateId(): AppState {
     return btoa(Math.random() + '').toLowerCase().substr(6, 6)
   }
 
