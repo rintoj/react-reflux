@@ -1,5 +1,6 @@
+import { Filter, Todo } from '../state'
+
 import { Action } from 'react-reflux'
-import { Todo } from '../state'
 
 export class AddTodoAction extends Action {
   constructor(public todo: Todo) { super() }
@@ -22,5 +23,5 @@ export class RemoveCompletedTodosAction extends Action {
 }
 
 export class SetFilterAction extends Action {
-  constructor(public filter: string) { super() }
+  constructor(public filter: Filter) { super() }
 }

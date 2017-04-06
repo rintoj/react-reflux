@@ -1,6 +1,6 @@
-import { Todo } from './todo'
+import { Filter, Todo } from './todo'
 
 export interface AppState {
   todos?: Todo[]
-  filter?: string
+  filter?: Filter
 }

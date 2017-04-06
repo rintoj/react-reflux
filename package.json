@@ -7,8 +7,7 @@
   "scripts": {
     "clear": "rimraf dist",
     "build": "npm run clear && tsc",
-    "push": "npm pack && cd demo && npm install ../react-reflux-*.*.*.tgz",
-    "push:watch": "concurrently -r 'npm run build -- -w' 'nodemon --watch dist --delay 1 --exec \"npm run push\"'"
+    "push": "npm run build && npm pack && cd demo && npm install ../react-reflux-*.*.*.tgz"
   },
   "repository": {
     "type": "git",
