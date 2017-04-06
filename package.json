@@ -1,7 +1,7 @@
 {
   "name": "react-reflux",
   "version": "0.0.0",
-  "description": "Better implementation of Redux",
+  "description": "Implement Redux in an easy and elegant way without much boilerplate code",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
