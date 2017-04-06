@@ -25,11 +25,12 @@
     "url": "https://github.com/rintoj/react-reflux/issues"
   },
   "homepage": "https://github.com/rintoj/react-reflux#readme",
-  "peerDependencies": {
-    "seamless-immutable": "^7.1.2",
-    "rxjs": "^5.3.0",
+  "dependencies": {
+    "react": "^15.4.2",
     "reflect-metadata": "^0.1.10",
-    "react": "^15.4.2"
+    "rxjs": "^5.3.0",
+    "seamless-immutable": "^7.1.2",
+    "source-map-loader": "^0.2.1"
   },
   "devDependencies": {
     "@types/node": "^7.0.12",

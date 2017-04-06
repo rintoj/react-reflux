@@ -5,3 +5,4 @@ node_modules/
 tsconfig.json
 tslint.json
 .gitignore
+webpack.config.js

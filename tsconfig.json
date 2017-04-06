@@ -3,7 +3,6 @@
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "jsx": "react",
     "pretty": true,
     "outDir": "./dist",
     "baseUrl": "src",
@@ -11,15 +10,15 @@
     "noImplicitAny": false,
     "preserveConstEnums": true,
     "allowJs": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "emitDecoratorMetadata": false,
+    "experimentalDecorators": false,
     "sourceMap": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "declaration": true,
     "lib": [
-      "es2017",
+      "es2016",
       "dom"
     ]
   },
