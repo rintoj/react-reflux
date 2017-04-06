@@ -79,8 +79,6 @@ new AddTodoAction({
 
 Use `@data` decorator and a selector function (parameter to the decorator) to get updates from application state. The property gets updated only when the value returned by the selector function, changes from previous state to the current state. Additionally, just like a map function, you could map the data to another value as you choose.
 
-We may at times need to derive additional properties from the data, sometimes using complex calculations. Therefore `@BindData` can be used with functions as well.
-
 ```ts
 import * as React from 'react'
 import { data, inject } from 'react-reflux'
@@ -225,7 +223,7 @@ Follow me:
 | [Youtube](https://youtube.com/+RintoJoseMankudy)
 
 ## Versions
-[Check CHANGELOG](https://github.com/rintoj/angular-reflux/blob/master/CHANGELOG.md)
+[Check CHANGELOG](https://github.com/rintoj/react-reflux/blob/master/CHANGELOG.md)
 
 ## License
 ```
