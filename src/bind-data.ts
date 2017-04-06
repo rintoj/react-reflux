@@ -28,13 +28,26 @@ function bindData(target: any, key: string, selector: { (state: any): any }): Su
 }
 
 /**
- * Observer is a decorator that will help observe an action
+ * This decorator helps you to inject application state into a component's state
+ * @example
+ *
+ * class Props {
+ *   @data((state: AppState) => state.todos)
+ *   todos: Todo[]
+ * }
+ *
+ * interface Props { }
+ *
+ * @inject(Props)
+ * export class TodoListComponent extends React.Component<Props, State> {
+ *   ...
+ * }
  *
  * @export
- * @param {*} target
+ * @param {*} props - Component properties class annotated with @data
  * @returns
  */
-export function observer(target: any) {
+export function inject(propsClass: Function) {
 
   return (targetComponent: any): any => {
 
@@ -44,7 +57,7 @@ export function observer(target: any) {
       }
 
       componentDidMount() {
-        let dataBindings = Reflect.getMetadata(REFLUX_DATA_BINDINGS_KEY, target)
+        let dataBindings = Reflect.getMetadata(REFLUX_DATA_BINDINGS_KEY, propsClass)
         if (dataBindings != undefined && dataBindings.destroyed === true) {
 
           dataBindings.subscriptions = dataBindings.subscriptions.concat(

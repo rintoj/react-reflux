@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { AppState, Todo } from '../../state'
-import { data, observer } from 'react-reflux'
+import { data, inject } from 'react-reflux'
 
 import { TodoItem } from './todo-item'
 
@@ -16,7 +16,7 @@ class Props {
 
 interface State { }
 
-@observer(Props)
+@inject(Props)
 export class TodoList extends React.Component<Props, State> {
   render() {
     const { filteredTodos } = this.props

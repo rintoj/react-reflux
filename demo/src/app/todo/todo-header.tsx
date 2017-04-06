@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { AddTodoAction, ToggleAllTodosAction } from '../../action'
-import { data, observer } from 'react-reflux'
+import { data, inject } from 'react-reflux'
 
 import { AppState } from '../../state'
 
@@ -16,7 +16,7 @@ interface State {
   todoText?: string
 }
 
-@observer(Props)
+@inject(Props)
 export class TodoHeader extends React.Component<Props, State> {
 
   constructor(props) {

@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { RemoveCompletedTodosAction, SetFilterAction } from '../../action'
-import { data, observer } from 'react-reflux'
+import { data, inject } from 'react-reflux'
 
 import { AppState } from '../../state'
 
@@ -26,7 +26,7 @@ class Props {
 }
 interface State { }
 
-@observer(Props)
+@inject(Props)
 export class TodoFooter extends React.Component<Props, State> {
 
   constructor(props) {

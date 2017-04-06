@@ -43,13 +43,26 @@ function bindData(target, key, selector) {
     });
 }
 /**
- * Observer is a decorator that will help observe an action
+ * This decorator helps you to inject application state into a component's state
+ * @example
+ *
+ * class Props {
+ *   @data((state: AppState) => state.todos)
+ *   todos: Todo[]
+ * }
+ *
+ * interface Props { }
+ *
+ * @inject(Props)
+ * export class TodoListComponent extends React.Component<Props, State> {
+ *   ...
+ * }
  *
  * @export
- * @param {*} target
+ * @param {*} props - Component properties class annotated with @data
  * @returns
  */
-function observer(target) {
+function inject(propsClass) {
     return function (targetComponent) {
         return (function (_super) {
             __extends(ObserverComponent, _super);
@@ -58,7 +71,7 @@ function observer(target) {
             }
             ObserverComponent.prototype.componentDidMount = function () {
                 var _this = this;
-                var dataBindings = Reflect.getMetadata(constance_1.REFLUX_DATA_BINDINGS_KEY, target);
+                var dataBindings = Reflect.getMetadata(constance_1.REFLUX_DATA_BINDINGS_KEY, propsClass);
                 if (dataBindings != undefined && dataBindings.destroyed === true) {
                     dataBindings.subscriptions = dataBindings.subscriptions.concat(Object.keys(dataBindings.selectors)
                         .map(function (key) { return bindData(_this, key, dataBindings.selectors[key]); }));
@@ -82,7 +95,7 @@ function observer(target) {
         }(React.Component));
     };
 }
-exports.observer = observer;
+exports.inject = inject;
 /**
  * Bind data to a variable or to a function
  *
