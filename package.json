@@ -7,7 +7,7 @@
   "scripts": {
     "clear": "rimraf dist",
     "build": "npm run clear && tsc",
-    "push": "npm run build && npm pack && cd demo && npm install ../react-reflux-*.*.*.tgz"
+    "push": "npm run build && npm pack && cd ../react-reflux-starter && npm install ../react-reflux/react-reflux-*.*.*.tgz"
   },
   "repository": {
     "type": "git",
