@@ -1,3 +1,7 @@
+# v1.2.0
+
+* Break Change: Reverted Observable to Promise - dispatch()
+
 # v1.1.0
 
 * Break Change: Dispatch now returns Observable instead of Promise

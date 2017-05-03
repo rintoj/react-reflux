@@ -102,62 +102,69 @@ export class Action {
    * Dispatch this action. Returns an observable which will be completed when all action subscribers
    * complete it's processing
    *
-   * @returns {Observable<S>}
+   * @returns {Promise<S>}
    */
-  dispatch(): Observable<any> {
+  dispatch(): Promise<any> {
 
     Reflux.lastAction = this
     let subscriptions: ActionObserver[] = Reflux.subscriptions[this.identity]
     if (subscriptions == undefined || subscriptions.length === 0) {
-      return Observable.empty()
+      return Promise.resolve()
     }
 
-    let observable: Observable<any> = Observable.from(subscriptions)
+    return new Promise((resolve, reject) => {
 
-      // convert 'Observable' returned by action subscribers to state
-      .flatMap((actionObserver: ActionObserver): Observable<any> => {
-        const result = actionObserver(Reflux.state, this)
-        if (!(result instanceof Observable || result instanceof Promise)) {
-          return Observable.create((observer: Observer<any>) => {
-            observer.next(result)
-            observer.complete()
-          })
-        }
-        return result
-      })
+      let observable: Observable<any> = Observable.from(subscriptions)
 
-      // merge or replace state
-      .map((state: any) => {
-        if (state instanceof ReplaceableState) {
-          // replace the state with the new one if not 'undefined'
-          let nextState = (state as ReplaceableState).state
-          if (nextState == undefined) return
-          if (!(nextState instanceof Immutable)) nextState = Immutable.from(nextState)
-          Reflux.state = nextState
-          return nextState
+        // convert 'Observable' returned by action subscribers to state
+        .flatMap((actionObserver: ActionObserver): Observable<any> => {
+          const result = actionObserver(Reflux.state, this)
+          if (!(result instanceof Observable || result instanceof Promise)) {
+            return Observable.create((observer: Observer<any>) => {
+              observer.next(result)
+              observer.complete()
+            })
+          }
+          return result
+        })
 
-        } else if (state != undefined) {
-          // merge the state with existing state
-          Reflux.state = Reflux.state.merge(state, { deep: true })
-        }
-        return state
-      })
+        // merge or replace state
+        .map((state: any) => {
+          if (state instanceof ReplaceableState) {
+            // replace the state with the new one if not 'undefined'
+            let nextState = (state as ReplaceableState).state
+            if (nextState == undefined) return
+            if (!(nextState instanceof Immutable)) nextState = Immutable.from(nextState)
+            Reflux.state = nextState
+            return nextState
 
-      // wait until all the subscripts have completed processing
-      .skipWhile((_, i: number) => i + 1 < subscriptions.length)
+          } else if (state != undefined) {
+            // merge the state with existing state
+            Reflux.state = Reflux.state.merge(state, { deep: true })
+          }
+          return state
+        })
 
-      // push 'next' state to 'stateStream' if there has been a change to the state
-      .map((state: any) => {
-        if (state != undefined) {
-          Reflux.stateStream.next(Reflux.state)
-        }
-        return state
-      })
+        // wait until all the subscripts have completed processing
+        .skipWhile((_, i: number) => i + 1 < subscriptions.length)
 
-      // make this sharable (to avoid multiple copies of this observable being created)
-      .share()
+        .catch(error => {
+          reject(error)
+          return Observable.empty()
+        })
 
-    observable.subscribe()
-    return observable
+        // push 'next' state to 'stateStream' if there has been a change to the state
+        .map((state: any) => {
+          if (state != undefined) {
+            Reflux.stateStream.next(Reflux.state)
+          }
+          return state
+        })
+
+        // make this sharable (to avoid multiple copies of this observable being created)
+        .share()
+
+      observable.subscribe(undefined, reject, resolve)
+    })
   }
 }
