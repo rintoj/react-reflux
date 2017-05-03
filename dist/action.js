@@ -86,53 +86,58 @@ var Action = (function () {
      * Dispatch this action. Returns an observable which will be completed when all action subscribers
      * complete it's processing
      *
-     * @returns {Observable<S>}
+     * @returns {Promise<S>}
      */
     Action.prototype.dispatch = function () {
         var _this = this;
         constance_1.Reflux.lastAction = this;
         var subscriptions = constance_1.Reflux.subscriptions[this.identity];
         if (subscriptions == undefined || subscriptions.length === 0) {
-            return Observable_1.Observable.empty();
+            return Promise.resolve();
         }
-        var observable = Observable_1.Observable.from(subscriptions)
-            .flatMap(function (actionObserver) {
-            var result = actionObserver(constance_1.Reflux.state, _this);
-            if (!(result instanceof Observable_1.Observable || result instanceof Promise)) {
-                return Observable_1.Observable.create(function (observer) {
-                    observer.next(result);
-                    observer.complete();
-                });
-            }
-            return result;
-        })
-            .map(function (state) {
-            if (state instanceof replaceable_state_1.ReplaceableState) {
-                // replace the state with the new one if not 'undefined'
-                var nextState = state.state;
-                if (nextState == undefined)
-                    return;
-                if (!(nextState instanceof Immutable))
-                    nextState = Immutable.from(nextState);
-                constance_1.Reflux.state = nextState;
-                return nextState;
-            }
-            else if (state != undefined) {
-                // merge the state with existing state
-                constance_1.Reflux.state = constance_1.Reflux.state.merge(state, { deep: true });
-            }
-            return state;
-        })
-            .skipWhile(function (_, i) { return i + 1 < subscriptions.length; })
-            .map(function (state) {
-            if (state != undefined) {
-                constance_1.Reflux.stateStream.next(constance_1.Reflux.state);
-            }
-            return state;
-        })
-            .share();
-        observable.subscribe();
-        return observable;
+        return new Promise(function (resolve, reject) {
+            var observable = Observable_1.Observable.from(subscriptions)
+                .flatMap(function (actionObserver) {
+                var result = actionObserver(constance_1.Reflux.state, _this);
+                if (!(result instanceof Observable_1.Observable || result instanceof Promise)) {
+                    return Observable_1.Observable.create(function (observer) {
+                        observer.next(result);
+                        observer.complete();
+                    });
+                }
+                return result;
+            })
+                .map(function (state) {
+                if (state instanceof replaceable_state_1.ReplaceableState) {
+                    // replace the state with the new one if not 'undefined'
+                    var nextState = state.state;
+                    if (nextState == undefined)
+                        return;
+                    if (!(nextState instanceof Immutable))
+                        nextState = Immutable.from(nextState);
+                    constance_1.Reflux.state = nextState;
+                    return nextState;
+                }
+                else if (state != undefined) {
+                    // merge the state with existing state
+                    constance_1.Reflux.state = constance_1.Reflux.state.merge(state, { deep: true });
+                }
+                return state;
+            })
+                .skipWhile(function (_, i) { return i + 1 < subscriptions.length; })
+                .catch(function (error) {
+                reject(error);
+                return Observable_1.Observable.empty();
+            })
+                .map(function (state) {
+                if (state != undefined) {
+                    constance_1.Reflux.stateStream.next(constance_1.Reflux.state);
+                }
+                return state;
+            })
+                .share();
+            observable.subscribe(undefined, reject, resolve);
+        });
     };
     return Action;
 }());

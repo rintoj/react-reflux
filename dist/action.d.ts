@@ -73,7 +73,7 @@ export declare class Action {
      * Dispatch this action. Returns an observable which will be completed when all action subscribers
      * complete it's processing
      *
-     * @returns {Observable<S>}
+     * @returns {Promise<S>}
      */
-    dispatch(): Observable<any>;
+    dispatch(): Promise<any>;
 }
