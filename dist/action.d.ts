@@ -75,5 +75,5 @@ export declare class Action {
      *
      * @returns {Observable<S>}
      */
-    dispatch(): Promise<any>;
+    dispatch(): Observable<any>;
 }

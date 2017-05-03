@@ -1,9 +1,10 @@
 import './observable'
 
+import * as Immutable from 'seamless-immutable'
+
 import { Observable } from 'rxjs/Observable'
 import { Observer } from 'rxjs/Observer'
 import { Reflux } from './constance'
-import * as Immutable from 'seamless-immutable'
 import { ReplaceableState } from './replaceable-state'
 
 /**
@@ -103,12 +104,12 @@ export class Action {
    *
    * @returns {Observable<S>}
    */
-  dispatch(): Promise<any> {
+  dispatch(): Observable<any> {
 
     Reflux.lastAction = this
     let subscriptions: ActionObserver[] = Reflux.subscriptions[this.identity]
     if (subscriptions == undefined || subscriptions.length === 0) {
-      return new Promise(resolve => resolve())
+      return Observable.empty()
     }
 
     let observable: Observable<any> = Observable.from(subscriptions)
@@ -153,20 +154,10 @@ export class Action {
         return state
       })
 
-      // catch any error occurred
-      .catch((error) => {
-        console.error(error)
-        return Observable.empty()
-      })
-
       // make this sharable (to avoid multiple copies of this observable being created)
       .share()
 
-    return new Promise((resolve, reject) => {
-      // to trigger observable
-      observable.subscribe(() => {
-        // empty function
-      }, reject, resolve)
-    })
+    observable.subscribe()
+    return observable
   }
 }

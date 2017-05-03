@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 require("./observable");
+var Immutable = require("seamless-immutable");
 var Observable_1 = require("rxjs/Observable");
 var constance_1 = require("./constance");
-var Immutable = require("seamless-immutable");
 var replaceable_state_1 = require("./replaceable-state");
 /**
  * Defines an action which an be extended to implement custom actions for a reflux application
@@ -93,7 +93,7 @@ var Action = (function () {
         constance_1.Reflux.lastAction = this;
         var subscriptions = constance_1.Reflux.subscriptions[this.identity];
         if (subscriptions == undefined || subscriptions.length === 0) {
-            return new Promise(function (resolve) { return resolve(); });
+            return Observable_1.Observable.empty();
         }
         var observable = Observable_1.Observable.from(subscriptions)
             .flatMap(function (actionObserver) {
@@ -130,17 +130,9 @@ var Action = (function () {
             }
             return state;
         })
-            .catch(function (error) {
-            console.error(error);
-            return Observable_1.Observable.empty();
-        })
             .share();
-        return new Promise(function (resolve, reject) {
-            // to trigger observable
-            observable.subscribe(function () {
-                // empty function
-            }, reject, resolve);
-        });
+        observable.subscribe();
+        return observable;
     };
     return Action;
 }());
