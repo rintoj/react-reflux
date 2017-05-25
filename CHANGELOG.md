@@ -1,3 +1,7 @@
+# v1.2.1
+
+* deprecate and migrated to [StateX](https://github.com/rintoj/statex)
+
 # v1.2.0
 
 * Break Change: Reverted Observable to Promise - dispatch()

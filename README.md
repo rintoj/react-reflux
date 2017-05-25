@@ -5,6 +5,9 @@
 
 Please note: This module is specially written for React applications. Methods and APIs defer from framework to framework. If you indent to use this module for angular check [angular-reflux](https://github.com/rintoj/angular-reflux)
 
+## This project is migrated to [StateX](https://github.com/rintoj/statex)
+**This project is no longer maintained. To know how to migrate to StateX [read this](https://github.com/rintoj/statex)**
+
 ## About
 
 Flux is an architecture for unidirectional data flow. By forcing the data to flow in a single direction, Flux makes it easy to reason *how data-changes will affect the application* depending on what actions have been issued. The components themselves may only update  application-wide data by executing an action to avoid double maintenance nightmares.
