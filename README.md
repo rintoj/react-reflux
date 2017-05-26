@@ -203,11 +203,7 @@ export class AppComponent extends React.Component<{}, {}> {
 
 ## Sample Code
 
-Sample code is right [here](https://github.com/rintoj/react-reflux-starter). You can clone this repository to get started with react project integrated with this module.
-
-```sh
-git clone https://github.com/rintoj/react-reflux-starter
-```
+[Removed]
 
 ### Hope this module is helpful to you. Please make sure to checkout my other [projects](https://github.com/rintoj) and [articles](https://medium.com/@rintoj). Enjoy coding!
 

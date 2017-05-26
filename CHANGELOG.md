@@ -1,3 +1,7 @@
+# v1.2.2
+
+* remove example
+
 # v1.2.1
 
 * deprecate and migrated to [StateX](https://github.com/rintoj/statex)
